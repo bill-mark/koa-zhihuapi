@@ -34,6 +34,8 @@ router.post('/users',(ctx)=>{
 
 
 app.use(router.routes())
+
+//allowedMethods 支持没有的方法返回405 比如put, 不支持的方法返回501 比如link
 app.use(usersRouter.routes()).use(usersRouter.allowedMethods())
 
 app.listen(3000)

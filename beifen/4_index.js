@@ -23,12 +23,20 @@ router.get('/',(ctx)=>{
 })
 
 usersRouter.get('/', auth, (ctx)=>{
-    console.log(ctx.params.id)
-    ctx.body = 'this is users'
+    
+    ctx.body = [{name:'da bo luo'},{name:'wu yi fan'}]
 })
 
 router.post('/users',(ctx)=>{
-    ctx.body = 'this is users post'
+    ctx.body = [{name:'da bo luo'}]
+})
+
+usersRouter.put('/', (ctx)=>{
+    ctx.body = 'this is users'
+})
+
+usersRouter.delete('/', (ctx)=>{
+    ctx.body = 'this is users'
 })
 
 

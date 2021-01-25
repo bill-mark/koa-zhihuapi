@@ -2,9 +2,13 @@ const db = [{name:"li lei"}]
 
 class UsersCtl {
    find(ctx){
+    //a.b
     ctx.body = db
    }
    findById(ctx){
+      if(ctx.params.id *1 > db.length){
+         ctx.throw(412)
+      }
       ctx.body = [{name:'da bo luo id'},{name:'wu yi fan id'}]
    }
    create(ctx){

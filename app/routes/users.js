@@ -8,8 +8,8 @@ router.get('/:id',findById)
 
 router.post('/', create)
 
-router.put('/', update)
+router.put('/:id', update)
 
-router.delete('/',del)
+router.delete('/:id',del)
 
 module.exports = router

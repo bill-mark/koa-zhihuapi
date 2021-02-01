@@ -3,6 +3,14 @@ const User = require('../models/users')
 const {secret} = require('../config')
 
 class UsersCtl {
+   async checkOwner(ctx,next){  //检查权限
+      console.log(ctx)
+      if(ctx.params.id !== ctx.state.user._id){
+         ctx.throw(403,'没有权限')
+      }
+      await next()
+   }
+
    async find(ctx){
     //a.b
     ctx.body = await User.find()
@@ -36,6 +44,7 @@ class UsersCtl {
       })
 
       const user = await User.findByIdAndUpdate(ctx.params.id,ctx.request.body)
+      //console.log(user)
       if(!user){
          ctx.throw(404,'用户不存在')
       }
@@ -49,11 +58,12 @@ class UsersCtl {
       ctx.body = user
    }
    async login(ctx){
+      console.log('login ------')
       ctx.verifyParams({
          name:{type:'string',required:true},
          password:{type:'string',required:true},
       })
-      const user = await User.findByIdAndUpdate(ctx.request.body)
+      const user = await User.findOne(ctx.request.body)
       if(!user){
          ctx.throw(401,'用户或密码不正确')
       }

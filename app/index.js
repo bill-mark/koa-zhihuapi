@@ -16,9 +16,7 @@ mongoose.connection.on('error',console.error)
 
 
 app.use(error({
-    postFormat:(e,{stack,...rest})=>{
-       process.env.NODE_ENV === 'production'?rest:{stack,...rest}
-    }
+    postFormat:(e,{stack,...rest})=>process.env.NODE_ENV === 'production'?rest:{stack,...rest}
 }))
 app.use(bodyParser())
 app.use(parameter(app))

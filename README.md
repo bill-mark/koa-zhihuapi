@@ -20,3 +20,11 @@ password:555laosiji
 
 schema
 属性设置select:false  find函数不会返回该属性
+
+
+jwt
+1.postman 
+test 设置全局变量token
+var jsonData = pm.response.json()
+pm.globals.set("token",jsonData.token)
+

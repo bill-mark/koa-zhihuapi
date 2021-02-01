@@ -7,6 +7,7 @@ const routing = require('./routes/index.js')
 const mongoose = require('mongoose')  //链接mongodb插件
 const {connectionStr} = require('./config')
 const path = require('path')  //路径模块
+const koaStatic = require('koa-static')
 
 mongoose.connect(connectionStr,{
     useNewUrlParser: true,//使用新解析字符串工具
@@ -15,6 +16,8 @@ mongoose.connect(connectionStr,{
 
 mongoose.connection.on('error',console.error)
 
+
+app.use(koaStatic(path.join(__dirname,'public')))
 
 app.use(error({
     postFormat:(e,{stack,...rest})=>process.env.NODE_ENV === 'production'?rest:{stack,...rest}

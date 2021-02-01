@@ -1,11 +1,12 @@
 const Koa = require('koa');
-const bodyParser = require('koa-bodyparser') //获取post请求体
+const koaBody = require('koa-body') //获取post请求体
 const error = require('koa-json-error')  //统一报错
 const parameter = require('koa-parameter')  //校验参数
 const app = new Koa();
 const routing = require('./routes/index.js')
 const mongoose = require('mongoose')  //链接mongodb插件
 const {connectionStr} = require('./config')
+const path = require('path')  //路径模块
 
 mongoose.connect(connectionStr,{
     useNewUrlParser: true,//使用新解析字符串工具
@@ -18,7 +19,16 @@ mongoose.connection.on('error',console.error)
 app.use(error({
     postFormat:(e,{stack,...rest})=>process.env.NODE_ENV === 'production'?rest:{stack,...rest}
 }))
-app.use(bodyParser())
+
+//post请求体
+app.use(koaBody({
+  multipart:true,//启用文件
+  formidable:{
+      uploadDir:path.join(__dirname,'public/uploads'),//保存文件目录
+      keepExtensions:true,//保留拓展名
+  }
+}))
+
 app.use(parameter(app))
 routing(app)
 

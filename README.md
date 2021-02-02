@@ -21,7 +21,10 @@ password:555laosiji
 schema
 属性设置select:false  find函数不会返回该属性
 
+findById(ctx.params.id).select('location')
+可以增加查询范围select:false的location
 
+##
 jwt
 1.postman 
 test 设置全局变量token

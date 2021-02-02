@@ -9,13 +9,14 @@ const userSchema = new Schema({
     avatar_url:{type:String},//头像
     gender:{type:String,enum:['male','female'],default:'male',required:true},//性别
     headline:{type:String},//一句话介绍
-    locations:{type:[{type:String}]},//地区
-    business:{type:String},//行业
+    locations:{type:[{type:String}],select:false},//地区
+    business:{type:String,select:false},//行业
     employments:{
         type:[{
             company:{type:String},
             job:{type:String}
         }],
+        select:false
     },//职业经历
     educations:{
         type:[{
@@ -25,6 +26,7 @@ const userSchema = new Schema({
             entrance_year:{type:String},
             graduation_year:{type:Number},//毕业年份
         }],
+        select:false
     },//教育经历
 })
 

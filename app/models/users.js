@@ -6,7 +6,7 @@ const userSchema = new Schema({
     __v:{type:Number,select:false},
     name:{type:String,required:true},
     password:{type:String,required:true,select:true},
-    avatar_url:{type:String},
+    avatar_url:{type:String},//头像
     gender:{type:String,enum:['male','female'],default:'male',required:true},//性别
     headline:{type:String},//一句话介绍
     locations:{type:[{type:String}]},//地区

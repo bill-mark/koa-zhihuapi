@@ -24,6 +24,9 @@ schema
 findById(ctx.params.id).select('location')
 可以增加查询范围select:false的location
 
+ObjectId
+主键
+
 ##
 jwt
 1.postman 

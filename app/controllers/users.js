@@ -90,6 +90,11 @@ class UsersCtl {
       }
       ctx.body = user.following
    }
+   //粉丝列表
+   async listFollowers(ctx){
+      const users = await User.find({following:ctx.params.id})
+      ctx.body = users
+   }
    //关注他人
    async follow(ctx){
       const me = await User.findById(ctx.state.user._id).select('+following')

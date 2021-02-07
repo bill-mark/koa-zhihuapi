@@ -16,8 +16,10 @@ class UsersCtl {
       await next()
    }
    async find(ctx){
-    //a.b
-    ctx.body = await User.find()
+      const {per_page = 10} = ctx.query
+      const page = Math.max(ctx.query.page * 1,1) - 1 //乘1用来转数字  max保证不能小于1
+      const perPage = Math.max(per_page * 1,1) //每页多少条
+    ctx.body = await User.find().limit(perPage).skip(page * perPage)
    }
    async findById(ctx){
       const {fields = ''} = ctx.query

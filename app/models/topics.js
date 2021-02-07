@@ -7,11 +7,6 @@ const topicSchema = new Schema({
     name:{type:String,required:true},
     avatar_url:{type:String},//话题图标
     introduction:{type:String,select:false},//话题介绍
-
 })
 
 module.exports = model('Topic',topicSchema)
-
-
-
-

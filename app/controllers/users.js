@@ -100,7 +100,7 @@ class UsersCtl {
       ctx.body = {token}
    }
 
-   //获取单独用户关注列表
+   //获取关注的用户列表
    async listFollowing(ctx){
       const user = await User.findById(ctx.params.id).select('+following').populate('following')
       if(!user){
@@ -128,6 +128,36 @@ class UsersCtl {
       const index = me.following.map(id => id.toString()).indexOf(ctx.params.id)
       if(index > -1){
          me.following.splice(index,1)
+         me.save()
+      }
+      ctx.status = 204
+   }
+
+   
+   //获取关注的话题列表
+   async listFollowingTopics(ctx){
+      const user = await User.findById(ctx.params.id).select('+followingTopics').populate('followingTopics')
+      if(!user){
+         ctx.throw(404,'无关注的话题')
+      }
+      console.log(user)
+      ctx.body = user.followingTopics
+   }
+   //关注话题
+   async followTopic(ctx){
+      const me = await User.findById(ctx.state.user._id).select('+followingTopics')
+      if(!me.followingTopics.map(id => id.toString()).includes(ctx.params.id)){
+         me.followingTopics.push(ctx.params.id)
+         me.save()
+      }
+      ctx.status = 204
+   }
+   //取消关注话题
+   async unfollowTopic(ctx){
+      const me = await User.findById(ctx.state.user._id).select('+followingTopics')
+      const index = me.followingTopics.map(id => id.toString()).indexOf(ctx.params.id)
+      if(index > -1){
+         me.followingTopics.splice(index,1)
          me.save()
       }
       ctx.status = 204

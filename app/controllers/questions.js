@@ -20,7 +20,7 @@ class QuestionsCtl {
     async findById(ctx) {
         const { fields = '' } = ctx.query
         const selectFields = fields.split(';').filter(f => f).map(f => ' +' + f).join('')  //增加查询范围
-        const question = await Question.findById(ctx.params.id).select(selectFields).populate('questioner')
+        const question = await Question.findById(ctx.params.id).select(selectFields).populate('questioner topics')
         if (!question) {
             ctx.throw(404, '问题不存在')
         }
@@ -37,6 +37,7 @@ class QuestionsCtl {
     }
     async checkQuestioner(ctx, next) {
         const { question } = ctx.state;
+        //console.log(question)
         if (question.questioner.toString() !== ctx.state.user._id) { ctx.throw(403, '没有权限'); }
         await next();
     }

@@ -34,6 +34,7 @@ router.put('/following/:id',auth,checkUserExist,follow)
 //取消关注某人
 router.delete('/following/:id',auth,checkUserExist,unfollow)
 
+
 //获取用户关注的话题列表
 router.get('/:id/followingTopics',listFollowingTopics)
 //关注话题

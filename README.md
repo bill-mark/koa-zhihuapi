@@ -27,6 +27,17 @@ findById(ctx.params.id).select('location')
 ObjectId
 主键
 
+service mongodb start
+
+数据库创建用户
+db.createUser(
+    {
+      user:"root",
+      pwd:"DER342434ggbhmkl667",
+      roles:[{role:"root",db:"admin"}]
+    }
+)
+
 ##
 jwt
 1.postman 

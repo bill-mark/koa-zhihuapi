@@ -4,8 +4,8 @@ const {Schema,model} = mongoose
 
 const userSchema = new Schema({
     __v:{type:Number,select:false},
-    name:{type:String,required:true},
-    password:{type:String,required:true,select:false},
+    name:{type:String,required:true},//required表示添加的时候必须带该字段
+    password:{type:String,required:true,select:false},//select:false  find函数不会返回该属性
     avatar_url:{type:String},//头像
     gender:{type:String,enum:['male','female'],default:'male',required:true},//性别
     headline:{type:String},//一句话介绍

@@ -4,6 +4,7 @@ const Question = require('../models/questions')
 const {secret} = require('../config')
 
 class UsersCtl {
+   
    async checkOwner(ctx,next){  //检查权限
       console.log(ctx)
       if(ctx.params.id !== ctx.state.user._id){
@@ -11,6 +12,8 @@ class UsersCtl {
       }
       await next()
    }
+
+
    async checkUserExist(ctx,next){
       const user = await User.findById(ctx.params.id)
       if(!user){ctx.throw(404,'用户不存在')}
@@ -134,7 +137,6 @@ class UsersCtl {
       ctx.status = 204
    }
 
-   
    //获取关注的话题列表
    async listFollowingTopics(ctx){
       const user = await User.findById(ctx.params.id).select('+followingTopics').populate('followingTopics')

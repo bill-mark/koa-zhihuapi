@@ -21,6 +21,9 @@ password:555laosiji
 schema
 属性设置select:false  find函数不会返回该属性
 
+populate
+增加返回关联的外键ID和select:true属性
+
 findById(ctx.params.id).select('location')
 可以增加查询范围select:false的location
 
@@ -37,6 +40,11 @@ db.createUser(
       roles:[{role:"root",db:"admin"}]
     }
 )
+
+时间
+注意时区,默认格林尼治时间
+存-->UTC格式
+ new Date('2019-12-02 07:42:32').toISOString()
 
 ##
 jwt
